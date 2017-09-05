@@ -39,15 +39,26 @@
 // [[Rcpp::depends(BH)]]
 #include <Rcpp.h>
 
-#include "stochnet.h"
-#include "gspn_random.h"
+inline double FracError(const double &a, const double &b){
+  return(std::abs((a-b)/a));
+};
+
+inline bool CheckFracError(const double &a, const double &b, const double &tol, const std::string &m){
+  if(this->FracError(a,b) > tol){
+    Rcpp::Rcout << "Fractional error of " << m << " too large; expected " << a << " found " << b << std::endl;
+    return(false);
+  } else {
+    return(true);
+  }
+}
 
 
-namespace afidd
-{
-namespace smv
-{
 
+
+
+///////////////////////////////////////////////////////////////////////////////
+// start Drew's code
+///////////////////////////////////////////////////////////////////////////////
 
 namespace detail
 {
@@ -825,6 +836,4 @@ class UniformDistribution : public TransitionDistribution<RNG>
   }
 };
 
-} // smv
-} // afidd
 #endif // _DISTRIBUTIONS_H_
