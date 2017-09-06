@@ -217,8 +217,8 @@ HazardIntegral_GammaDistribution <- function(t0, t1){
   ga = gamma(private$alpha)
   return(
     log(
-      (ga - zipfR::Igamma(a=private$alpha,x=private$beta*(t0-private$enabling_time))) /
-        (ga - zipfR::Igamma(a=private$alpha,x=private$beta*(t1-private$enabling_time)))
+      (ga - tgamma_lower_boost(a=private$alpha,x=private$beta*(t0-private$enabling_time))) /
+        (ga - tgamma_lower_boost(a=private$alpha,x=private$beta*(t1-private$enabling_time)))
     )
   )
 }
@@ -237,13 +237,76 @@ GammaDistribution$set(which = "public",name = "HazardIntegral",
 #' @param t0 numeric
 #'
 ImplicitHazardIntegral_GammaDistribution <- function(xa, t0){
-  # a=alpha
-  # b = beta
-  # te = enabling_time
-  # quad = 1 - exp(-xa)*(1-boost::math::gamma_p(a, b*(t0-te)));
-  return(NULL)
+  quad = 1 - exp(-xa)*(1-gamma_p_boost(private$alpha,private$beta*(t0-private$enabling_time)))
+  return(
+    private$enabling_time + gamma_p_inv_boost(private$alpha,quad)/private$beta
+  )
 }
 
 GammaDistribution$set(which = "public",name = "ImplicitHazardIntegral",
   value = ImplicitHazardIntegral_GammaDistribution, overwrite = TRUE
 )
+
+
+#' GammaDistribution: Check Samples
+#'
+#' im a method!
+#'  * This method is bound to \code{GammaDistribution$CheckSamples}
+#'
+#' @param samples numeric vector
+#' @param dt numeric
+#'
+CheckSamples_GammaDistribution <- function(samples, dt){
+  pass = TRUE
+
+
+
+  return(pass)
+}
+
+GammaDistribution$set(which = "public",name = "CheckSamples",
+  value = CheckSamples_GammaDistribution, overwrite = TRUE
+)
+
+
+
+
+# bool CheckSamples(const std::vector<double>& samples, double dt) {
+#   namespace bac=boost::accumulators;
+#   bool pass=true;
+#   double a=std::get<0>(params_);
+#   double th=1.0/std::get<1>(params_);
+#
+#   bac::accumulator_set<double, bac::stats<bac::tag::mean,
+#       bac::tag::moment<2>, bac::tag::moment<3>,
+#       bac::tag::variance(bac::lazy)>> acc;
+#   for (auto st : samples) {
+#     acc(st);
+#   }
+#
+#   if (std::abs(dt-0)<0.0000001) {
+#     double expected_mean=a*th;
+#     double expected_variance=a*th*th;
+#     double expected_skew=2/std::sqrt(a);
+#     pass=detail::CheckFracError(
+#         expected_mean, bac::mean(acc), 0.01, "mean");
+#     pass=detail::CheckFracError(
+#         expected_variance, bac::variance(acc), 0.01, "variance");
+#     pass=detail::CheckFracError(
+#         expected_skew, bac::moment<3>(acc), 0.01, "skew");
+#   }
+#
+#   double th_est=bac::mean(acc)/a;
+#   pass=detail::CheckFracError(th, th_est, 0.01, "theta");
+#
+#   // Following wikipedia on Gamma distribution...
+#   double slog=0.0;
+#   for (auto sl : samples) {
+#     slog+=std::log(sl);
+#   }
+#   double s=std::log(bac::mean(acc))-slog/samples.size();
+#   double a_est=(3-s+std::sqrt((s-3)*(s-3)+24*s))/(12*s);
+#   pass=detail::CheckFracError(a, a_est, 0.03, "alpha");
+#   return pass;
+# }
+# };
