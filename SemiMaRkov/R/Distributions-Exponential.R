@@ -95,7 +95,7 @@ ExponentialDistribution <- R6::R6Class(classname="ExponentialDistribution",
 ###############################################################################
 
 #' ExponentialDistribution: Sample
-#'
+#'f
 #' sample me
 #'  * This method is bound to \code{ExponentialDistribution$Sample}
 #'
