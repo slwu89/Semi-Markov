@@ -163,15 +163,71 @@ WeibullDistribution$set(which = "public",name = "ImplicitHazardIntegral",
 )
 
 
-#' ExponentialDistribution: Enabling Time
+#' WeibullDistribution: Check Samples
 #'
 #' im a method!
-#'  * This method is bound to \code{ExponentialDistribution$EnablingTime}
+#'  * This method is bound to \code{WeibullDistribution$CheckSamples}
 #'
-EnablingTime_ExponentialDistribution <- function(current_time){
-  return(private$enabling_time)
+#' @param samples numeric vector
+#' @param dt numeric
+#'
+CheckSamples_WeibullDistribution <- function(samples, dt){
+
+  pass = TRUE
+
+  if(abs(dt-0)<1e-6){
+
+    # check empirical vs. theoretical mean
+    expected_mean = private$lambda * gamma(1+1/private$k)
+    mean = mean(samples)
+    if(self$FracError(expected_mean,mean) > 1e-2){
+      pass = FALSE
+      print(paste0("Expected mean ",expected_mean," but found ",mean))
+    }
+
+    # check empirical vs. theoretical variance
+    expected_variance = private$l * private$l * (
+      gamma(1+2/private$k) - (gamma(1+1/private$k))^2
+    )
+    variance = var(samples)
+    if(self$FracError(expected_variance,variance) > 1e-2){
+      pass = FALSE
+      print(paste0("Expected variance ",expected_variance," but found ",variance))
+    }
+
+    # check empirical vs. theoretical lambda
+    min = min(samples)
+    mink = min^private$k
+
+    total = vapply(X = samples,FUN = function(x){x^private$k},FUN.VALUE = numeric(1),USE.NAMES = FALSE)
+    total = sum(total)
+    lambda_estimator = (total/length(samples) - mink)^(1/private$k)
+
+    if(self$FracError(private$lambda, lambda_estimator) > 1e-2){
+      pass = FALSE
+      print(paste0("Expected lambda ",private$lambda," but found ",lambda_estimator))
+    }
+
+    # check empirical k vs. theoretical k
+    kcheck = vapply(X = samples,FUN = function(x,mink,k,min){
+      out = numeric(3)
+      out[1] = (x^k) * log(x) - mink*log(min) -  # numerator
+      out[2] = (x^k) - mink # denominator
+      out[3] = log(x) # logsum
+      return(out)
+    },FUN.VALUE = numeric(3),USE.NAMES = FALSE,mink=mink,k=private$k,min=min)
+    kcheck = rowSums(kcheck)
+
+    k_est_inv = kcheck[1]/kcheck[2] - kcheck[3]/length(samples)
+    k_est = 1/k_est_inv
+
+    pass = self$CheckFracError(k,k_est,1e-2,"k")
+
+  }
+
+  return(pass)
 }
 
-ExponentialDistribution$set(which = "public",name = "EnablingTime",
-  value = EnablingTime_ExponentialDistribution, overwrite = TRUE
+WeibullDistribution$set(which = "public",name = "CheckSamples",
+  value = CheckSamples_WeibullDistribution, overwrite = TRUE
 )

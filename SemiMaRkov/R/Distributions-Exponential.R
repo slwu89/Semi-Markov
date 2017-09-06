@@ -244,7 +244,7 @@ ExponentialDistribution$set(which = "public",name = "ImplicitHazardIntegral",
 #'
 CheckSamples_ExponentialDistribution <- function(samples, dt){
 
-  pass = logical(1)
+  pass = TRUE
   lambda_estimator = 1 / mean(samples)
   too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
   too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
@@ -516,7 +516,7 @@ ShiftedExponentialDistribution$set(which = "public",name = "HazardIntegral",
 #'
 CheckSamples_ShiftedExponentialDistribution <- function(samples, dt){
 
-  pass = logical(1)
+  pass = TRUE
   lambda_estimator = 1 / mean(samples)
   too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
   too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
