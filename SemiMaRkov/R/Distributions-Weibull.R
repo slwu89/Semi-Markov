@@ -73,6 +73,148 @@ WeibullDistribution <- R6::R6Class(classname="WeibullDistribution",
 
 ) #end class definition
 
+# Getters & Setters
+
+#' WeibullDistribution: Get \code{lambda}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_lambda}
+#'
+get_lambda_WeibullDistribution <- function(){
+  return(private$lambda)
+}
+
+WeibullDistribution$set(which = "public",name = "get_lambda",
+  value = get_lambda_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Set \code{lambda}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_lambda}
+#'
+#' @param lambda numeric
+#'
+set_lambda_WeibullDistribution <- function(lambda){
+  private$lambda = lambda
+}
+
+WeibullDistribution$set(which = "public",name = "set_lambda",
+  value = set_lambda_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Get \code{k}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_k}
+#'
+get_k_WeibullDistribution <- function(){
+  return(private$k)
+}
+
+WeibullDistribution$set(which = "public",name = "get_k",
+  value = get_k_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Set \code{k}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_k}
+#'
+#' @param k numeric
+#'
+set_k_WeibullDistribution <- function(k){
+  private$k = k
+}
+
+WeibullDistribution$set(which = "public",name = "set_k",
+  value = set_k_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Get \code{enabling_time}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_enabling_time}
+#'
+get_enabling_time_WeibullDistribution <- function(){
+  return(private$enabling_time)
+}
+
+WeibullDistribution$set(which = "public",name = "get_enabling_time",
+  value = get_enabling_time_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Set \code{enabling_time}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_enabling_time}
+#'
+#' @param enabling_time numeric
+#'
+set_enabling_time_WeibullDistribution <- function(enabling_time){
+  private$enabling_time = enabling_time
+}
+
+WeibullDistribution$set(which = "public",name = "set_enabling_time",
+  value = set_enabling_time_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Get \code{shift}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_shift}
+#'
+get_shift_WeibullDistribution <- function(){
+  return(private$shift)
+}
+
+WeibullDistribution$set(which = "public",name = "get_shift",
+  value = get_shift_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Set \code{shift}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_shift}
+#'
+#' @param shift numeric
+#'
+set_shift_WeibullDistribution <- function(shift){
+  private$shift = shift
+}
+
+WeibullDistribution$set(which = "public",name = "set_shift",
+  value = set_shift_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Get \code{normal}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_normal}
+#'
+get_normal_WeibullDistribution <- function(){
+  return(private$normal)
+}
+
+WeibullDistribution$set(which = "public",name = "get_normal",
+  value = get_normal_WeibullDistribution, overwrite = TRUE
+)
+
+#' WeibullDistribution: Set \code{normal}
+#'
+#' im a method!
+#'  * This method is bound to \code{WeibullDistribution$get_normal}
+#'
+#' @param normal numeric
+#'
+set_normal_WeibullDistribution <- function(normal){
+  private$normal = normal
+}
+
+WeibullDistribution$set(which = "public",name = "set_normal",
+  value = set_normal_WeibullDistribution, overwrite = TRUE
+)
+
 
 ###############################################################################
 #   WeibullDistribution: Class Methods
