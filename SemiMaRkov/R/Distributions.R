@@ -40,6 +40,10 @@ WeibullDistribution$set(which = "public",name = "FracError",
   value = FracError, overwrite = TRUE
 )
 
+GammaDistribution$set(which = "public",name = "FracError",
+  value = FracError, overwrite = TRUE
+)
+
 
 #' Check Fractional Error
 #'
@@ -71,6 +75,10 @@ ShiftedExponentialDistribution$set(which = "public",name = "CheckFracError",
   value = CheckFracError, overwrite = TRUE
 )
 
-WeibullDistribution$set(which = "public",name = "FracError",
+WeibullDistribution$set(which = "public",name = "CheckFracError",
+  value = CheckFracError, overwrite = TRUE
+)
+
+GammaDistribution$set(which = "public",name = "CheckFracError",
   value = CheckFracError, overwrite = TRUE
 )

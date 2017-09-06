@@ -7,6 +7,7 @@
 #
 #   Original Semi-Markov C++ library by Andrew Dolgert (http://cbsu.tc.cornell.edu/staff/drew/)
 #   R Package by Sean Wu (https://slwu89.github.io)
+#   WeibullDistribution
 #   September 6, 2017
 #
 ###############################################################################
