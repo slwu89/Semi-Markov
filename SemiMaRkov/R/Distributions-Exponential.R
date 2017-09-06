@@ -12,38 +12,8 @@
 ###############################################################################
 
 
-#' Fractional Error
-#'
-#' Used to in \code{\link{CheckFracError}}
-#'
-#' @param a numeric
-#' @param b numeric
-#'
-#' @export
-FracError <- function(a,b){
-  return(abs((a-b)/a))
-}
-
-#' Check Fractional Error
-#'
-#' Return logical value
-#'
-#' @param a numeric
-#' @param b numeric
-#'
-#' @export
-CheckFracError <- function(a,b,tol,m){
-  if(FracError(a,b)>tol){
-    print(paste0("Fractional error of ",m," too large. Expected ",a," found ",b))
-    return(FALSE)
-  } else {
-    return(TRUE)
-  }
-}
-
-
 ###############################################################################
-#   Class Definition
+#   ExponentialDistribution: Class Definition
 ###############################################################################
 
 #' ExponentialDistribution Class Definition
@@ -105,8 +75,9 @@ ExponentialDistribution <- R6::R6Class(classname="ExponentialDistribution",
 
 
 ###############################################################################
-#   Class Methods
+#   ExponentialDistribution: Class Methods
 ###############################################################################
+
 
 #' ExponentialDistribution: Sample
 #'
@@ -213,10 +184,183 @@ CheckSamples_ExponentialDistribution <- function(samples, dt){
 
   variance = var(samples)
 
-
+  pass = self$CheckFracError(a = variance, b = private$lambda^2, tol = 0.01, m = "variance")
+  return(pass)
 
 }
 
 ExponentialDistribution$set(which = "public",name = "CheckSamples",
   value = CheckSamples_ExponentialDistribution, overwrite = TRUE
+)
+
+
+###############################################################################
+#   ShiftedExponentialDistribution: Class Definition
+###############################################################################
+
+#' ShiftedExponentialDistribution Class Definition
+#'
+#' do something
+#'
+#' @docType class
+#' @format An \code{\link{R6Class}} generator object
+#' @keywords R6 class
+#'
+#' @section **Constructor**:
+#'  * argument: im an agument!
+#'
+#' @section **Methods**:
+#'  * method: im a method!
+#'
+#' @section **Fields**:
+#'  * field: im a field!
+#'
+#' @export
+ShiftedExponentialDistribution <- R6::R6Class(classname="ShiftedExponentialDistribution",
+                     portable = TRUE,
+                     cloneable = TRUE,
+                     lock_class = FALSE,
+                     lock_objects = FALSE,
+
+                     #public members
+                     public = list(
+
+                       #################################################
+                       # Constructor
+                       #################################################
+
+                       initialize = function(lambda, enabling_time, shift, normal){
+
+                         if(!(lambda > 0)){
+                           stop(paste0("lambda ",lambda," must be greater than 0"))
+                         }
+
+                         private$lambda = lambda
+                         private$enabling_time = enabling_time
+                         private$shift = shift
+                         private$normal = normal
+
+                       }
+
+                     ),
+
+                     #private members
+                     private = list(
+
+                       # fields
+                       lambda = numeric(1),
+                       enabling_time = numeric(1),
+                       shift = numeric(1),
+                       normal = numeric(1)
+
+                     )
+
+) #end class definition
+
+
+###############################################################################
+#   ShiftedExponentialDistribution: Class Methods
+###############################################################################
+
+
+#' ShiftedExponentialDistribution: Sample
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$Sample}
+#'
+#' @param current_time numeric
+#'
+Sample_ShiftedExponentialDistribution <- function(current_time){
+  U = runif(n=1,min=0,max=1) / private$normal
+  if(U>1){
+    return(Inf)
+  } else if(current_time > private$enabling_time + private$shift){
+    return(-log(U)/private$lambda)
+  } else {
+    return(
+      (private$enabling_time + private$shift) - log(U)/private$normal - current_time
+    )
+  }
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "Sample",
+  value = Sample_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ShiftedExponentialDistribution: BoundedHazard
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$BoundedHazard}
+#'
+BoundedHazard_ShiftedExponentialDistribution <- function(){
+  return(TRUE)
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "BoundedHazard",
+  value = BoundedHazard_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ShiftedExponentialDistribution: Implicit Hazard Integral
+#'
+#' This implicitly solves for a quantile by integrating the hazard. The function returns \eqn{t} in \deqn{x_{a}=\int_{t0}^{t}\lambda (s)ds}
+#'  * This method is bound to \code{ShiftedExponentialDistribution$ImplicitHazardIntegral}
+#'
+#' @param xa numeric
+#' @param t0 numeric
+#'
+ImplicitHazardIntegral_ShiftedExponentialDistribution <- function(xa, t0){
+  start = max(t0,private$shift+private$enabling_time)
+  return(start + xa/private$lambda)
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "HazardIntegral",
+  value = ImplicitHazardIntegral_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ShiftedExponentialDistribution: EnablingTime
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$EnablingTime}
+#'
+EnablingTime_ShiftedExponentialDistribution <- function(current_time){
+  return(private$enabling_time)
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "EnablingTime",
+  value = EnablingTime_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ShiftedExponentialDistribution: CheckSamples
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$CheckSamples}
+#'
+#' @param samples numeric vector
+#' @param dt numeric
+#'
+CheckSamples_ShiftedExponentialDistribution <- function(samples, dt){
+
+  pass = logical(1)
+  lambda_estimator = 1 / mean(samples)
+  too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
+  too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
+
+  if(too_low | too_high){
+    print(paste0("Parameter not in bounds. Low? ",too_low," high? ",too_high))
+    pass = FALSE
+  }
+
+  variance = var(samples)
+
+  pass = self$CheckFracError(a = variance, b = private$lambda^2, tol = 0.01, m = "variance")
+  return(pass)
+
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "CheckSamples",
+  value = CheckSamples_ShiftedExponentialDistribution, overwrite = TRUE
 )

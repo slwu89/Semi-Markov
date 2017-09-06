@@ -39,18 +39,18 @@
 // [[Rcpp::depends(BH)]]
 #include <Rcpp.h>
 
-inline double FracError(const double &a, const double &b){
-  return(std::abs((a-b)/a));
-};
-
-inline bool CheckFracError(const double &a, const double &b, const double &tol, const std::string &m){
-  if(this->FracError(a,b) > tol){
-    Rcpp::Rcout << "Fractional error of " << m << " too large; expected " << a << " found " << b << std::endl;
-    return(false);
-  } else {
-    return(true);
-  }
-}
+// inline double FracError(const double &a, const double &b){
+//   return(std::abs((a-b)/a));
+// };
+//
+// inline bool CheckFracError(const double &a, const double &b, const double &tol, const std::string &m){
+//   if(this->FracError(a,b) > tol){
+//     Rcpp::Rcout << "Fractional error of " << m << " too large; expected " << a << " found " << b << std::endl;
+//     return(false);
+//   } else {
+//     return(true);
+//   }
+// }
 
 
 
@@ -817,7 +817,7 @@ class UniformDistribution : public TransitionDistribution<RNG>
   }
 
   double Sample(double current_time, RNG& rng) const {
-    return te_+tb_+(tb_-ta_)*smv::uniform(rng);
+    return te_+tb_+(tb_-ta_)*R::runif(0,1);
   }
 
   double CumulativeProbability(double enabling_time, double current_time,
