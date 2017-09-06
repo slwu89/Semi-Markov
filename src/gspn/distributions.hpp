@@ -411,7 +411,7 @@ public:
   }
 
   virtual bool BoundedHazard() const { return true; }
-  
+
   virtual double HazardIntegral(double t0, double t1) const {
     double a=std::get<0>(params_);
     double b=std::get<1>(params_);
@@ -515,7 +515,7 @@ public:
   virtual double HazardIntegral(double t0, double t1) const {
     return 0.0;
   }
-  
+
   virtual double ImplicitHazardIntegral(double xa, double t0) const {
     return 0.0;
   }
@@ -614,7 +614,7 @@ class DiracDistribution : public TransitionDistribution<RNG> {
     }
     return 0.0;
   }
-  
+
   virtual double ImplicitHazardIntegral(double xa, double t0) const {
     return te_+value_;
   }
@@ -667,7 +667,7 @@ class TriangularDistribution : public TransitionDistribution<RNG>
   virtual double HazardIntegral(double t0, double t1) const {
     return 0.0;
   }
-  
+
   virtual double ImplicitHazardIntegral(double xa, double t0) const {
     return 0.0;
   }
@@ -788,7 +788,7 @@ class UniformDistribution : public TransitionDistribution<RNG>
         <<" ret "<<retval);
     return retval;
   }
-  
+
   virtual double ImplicitHazardIntegral(double xa, double t0) const {
     if (t0-te_<ta_) t0=ta_+te_;
     double retval=te_+ta_+(tb_-ta_)*(1-std::exp(-xa)*(1-(t0-te_-ta_)/(tb_-ta_)));
