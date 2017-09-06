@@ -215,7 +215,12 @@ GammaDistribution$set(which = "public",name = "BoundedHazard",
 #'
 HazardIntegral_GammaDistribution <- function(t0, t1){
   ga = gamma(private$alpha)
-  
+  return(
+    log(
+      (ga - zipfR::Igamma(a=private$alpha,x=private$beta*(t0-private$enabling_time))) /
+        (ga - zipfR::Igamma(a=private$alpha,x=private$beta*(t1-private$enabling_time)))
+    )
+  )
 }
 
 GammaDistribution$set(which = "public",name = "HazardIntegral",
@@ -223,20 +228,20 @@ GammaDistribution$set(which = "public",name = "HazardIntegral",
 )
 
 
-#' WeibullDistribution: ImplicitHazardIntegral
-#'
-#' im a method!
-#'  * This method is bound to \code{WeibullDistribution$ImplicitHazardIntegral}
-#'
-#' @param xa numeric
-#' @param t0 numeric
-#'
-ImplicitHazardIntegral_WeibullDistribution <- function(xa, t0){
-  return(
-    private$enabling_time + private$lambda * (xa + ((t0-private$enabling_time)/private$lambda)^private$k)^(1/private$k)
-  )
-}
-
-WeibullDistribution$set(which = "public",name = "ImplicitHazardIntegral",
-  value = ImplicitHazardIntegral_WeibullDistribution, overwrite = TRUE
-)
+# #' WeibullDistribution: ImplicitHazardIntegral
+# #'
+# #' im a method!
+# #'  * This method is bound to \code{WeibullDistribution$ImplicitHazardIntegral}
+# #'
+# #' @param xa numeric
+# #' @param t0 numeric
+# #'
+# ImplicitHazardIntegral_WeibullDistribution <- function(xa, t0){
+#   return(
+#     private$enabling_time + private$lambda * (xa + ((t0-private$enabling_time)/private$lambda)^private$k)^(1/private$k)
+#   )
+# }
+#
+# WeibullDistribution$set(which = "public",name = "ImplicitHazardIntegral",
+#   value = ImplicitHazardIntegral_WeibullDistribution, overwrite = TRUE
+# )

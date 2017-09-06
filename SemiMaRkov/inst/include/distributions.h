@@ -431,7 +431,7 @@ public:
     double b=std::get<1>(params_);
     double te=std::get<2>(params_);
     double ga=boost::math::tgamma(a);
-    return std::log((ga-boost::math::tgamma_lower(a, b*(t0-te)))/
+    return std::log((ga-boost::math::tgamma_lower(a, b*(t0-te))) /
         (ga-boost::math::tgamma_lower(a, b*(t1-te))));
   }
 
