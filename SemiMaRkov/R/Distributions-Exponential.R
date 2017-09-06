@@ -24,8 +24,22 @@ FracError <- function(a,b){
   return(abs((a-b)/a))
 }
 
-# might not be necessary
-# CheckFracError <- function(){}
+#' Check Fractional Error
+#'
+#' Return logical value
+#'
+#' @param a numeric
+#' @param b numeric
+#'
+#' @export
+CheckFracError <- function(a,b,tol,m){
+  if(FracError(a,b)>tol){
+    print(paste0("Fractional error of ",m," too large. Expected ",a," found ",b))
+    return(FALSE)
+  } else {
+    return(TRUE)
+  }
+}
 
 
 ###############################################################################
@@ -95,8 +109,8 @@ ExponentialDistribution <- R6::R6Class(classname="ExponentialDistribution",
 ###############################################################################
 
 #' ExponentialDistribution: Sample
-#'f
-#' sample me
+#'
+#' im a method!
 #'  * This method is bound to \code{ExponentialDistribution$Sample}
 #'
 #' @param current_time numeric
@@ -111,5 +125,98 @@ Sample_ExponentialDistribution <- function(current_time){
 }
 
 ExponentialDistribution$set(which = "public",name = "Sample",
-  value = Sample_ExponentialDistribution,
-  overwrite = TRUE)
+  value = Sample_ExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ExponentialDistribution: BoundedHazard
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$BoundedHazard}
+#'
+BoundedHazard_ExponentialDistribution <- function(){
+  return(TRUE)
+}
+
+ExponentialDistribution$set(which = "public",name = "BoundedHazard",
+  value = BoundedHazard_ExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ExponentialDistribution: HazardIntegral
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$HazardIntegral}
+#'
+#' @param t0 numeric
+#' @param t1 numeric
+#'
+HazardIntegral_ExponentialDistribution <- function(current_time){
+  return(private$lambda * (t1-t0))
+}
+
+ExponentialDistribution$set(which = "public",name = "HazardIntegral",
+  value = HazardIntegral_ExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ExponentialDistribution: ImplicitHazardIntegral
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$ImplicitHazardIntegral}
+#'
+#' @param xa numeric
+#' @param t0 numeric
+#'
+ImplicitHazardIntegral_ExponentialDistribution <- function(current_time){
+  return((t0+xa)/private$lambda)
+}
+
+ExponentialDistribution$set(which = "public",name = "ImplicitHazardIntegral",
+  value = ImplicitHazardIntegral_ExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ExponentialDistribution: EnablingTime
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$EnablingTime}
+#'
+EnablingTime_ExponentialDistribution <- function(current_time){
+  return(private$enabling_time)
+}
+
+ExponentialDistribution$set(which = "public",name = "EnablingTime",
+  value = EnablingTime_ExponentialDistribution, overwrite = TRUE
+)
+
+
+#' ExponentialDistribution: CheckSamples
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$CheckSamples}
+#'
+#' @param samples numeric vector
+#' @param dt numeric
+#'
+CheckSamples_ExponentialDistribution <- function(samples, dt){
+
+  pass = logical(1)
+  lambda_estimator = 1 / mean(samples)
+  too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
+  too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
+
+  if(too_low | too_high){
+    print(paste0("Parameter not in bounds. Low? ",too_low," high? ",too_high))
+    pass = FALSE
+  }
+
+  variance = var(samples)
+
+
+
+}
+
+ExponentialDistribution$set(which = "public",name = "CheckSamples",
+  value = CheckSamples_ExponentialDistribution, overwrite = TRUE
+)
