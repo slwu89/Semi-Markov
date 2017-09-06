@@ -228,20 +228,22 @@ GammaDistribution$set(which = "public",name = "HazardIntegral",
 )
 
 
-# #' WeibullDistribution: ImplicitHazardIntegral
-# #'
-# #' im a method!
-# #'  * This method is bound to \code{WeibullDistribution$ImplicitHazardIntegral}
-# #'
-# #' @param xa numeric
-# #' @param t0 numeric
-# #'
-# ImplicitHazardIntegral_WeibullDistribution <- function(xa, t0){
-#   return(
-#     private$enabling_time + private$lambda * (xa + ((t0-private$enabling_time)/private$lambda)^private$k)^(1/private$k)
-#   )
-# }
-#
-# WeibullDistribution$set(which = "public",name = "ImplicitHazardIntegral",
-#   value = ImplicitHazardIntegral_WeibullDistribution, overwrite = TRUE
-# )
+#' GammaDistribution: Implicit Hazard Integral
+#'
+#' im a method!
+#'  * This method is bound to \code{GammaDistribution$ImplicitHazardIntegral}
+#'
+#' @param xa numeric
+#' @param t0 numeric
+#'
+ImplicitHazardIntegral_GammaDistribution <- function(xa, t0){
+  # a=alpha
+  # b = beta
+  # te = enabling_time
+  # quad = 1 - exp(-xa)*(1-boost::math::gamma_p(a, b*(t0-te)));
+  return(NULL)
+}
+
+GammaDistribution$set(which = "public",name = "ImplicitHazardIntegral",
+  value = ImplicitHazardIntegral_GammaDistribution, overwrite = TRUE
+)

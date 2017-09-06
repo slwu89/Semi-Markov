@@ -5,6 +5,54 @@
 
 using namespace Rcpp;
 
+// tgamma_boost
+double tgamma_boost(const double& a, const double& z);
+RcppExport SEXP _SemiMaRkov_tgamma_boost(SEXP aSEXP, SEXP zSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const double& >::type z(zSEXP);
+    rcpp_result_gen = Rcpp::wrap(tgamma_boost(a, z));
+    return rcpp_result_gen;
+END_RCPP
+}
+// tgamma_lower_boost
+double tgamma_lower_boost(const double& a, const double& z);
+RcppExport SEXP _SemiMaRkov_tgamma_lower_boost(SEXP aSEXP, SEXP zSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const double& >::type z(zSEXP);
+    rcpp_result_gen = Rcpp::wrap(tgamma_lower_boost(a, z));
+    return rcpp_result_gen;
+END_RCPP
+}
+// gamma_p_boost
+double gamma_p_boost(const double& a, const double& z);
+RcppExport SEXP _SemiMaRkov_gamma_p_boost(SEXP aSEXP, SEXP zSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const double& >::type z(zSEXP);
+    rcpp_result_gen = Rcpp::wrap(gamma_p_boost(a, z));
+    return rcpp_result_gen;
+END_RCPP
+}
+// gamma_p_inv_boost
+double gamma_p_inv_boost(const double& a, const double& z);
+RcppExport SEXP _SemiMaRkov_gamma_p_inv_boost(SEXP aSEXP, SEXP zSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const double& >::type z(zSEXP);
+    rcpp_result_gen = Rcpp::wrap(gamma_p_inv_boost(a, z));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_hello
 List rcpp_hello();
 RcppExport SEXP _SemiMaRkov_rcpp_hello() {
@@ -17,6 +65,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_SemiMaRkov_tgamma_boost", (DL_FUNC) &_SemiMaRkov_tgamma_boost, 2},
+    {"_SemiMaRkov_tgamma_lower_boost", (DL_FUNC) &_SemiMaRkov_tgamma_lower_boost, 2},
+    {"_SemiMaRkov_gamma_p_boost", (DL_FUNC) &_SemiMaRkov_gamma_p_boost, 2},
+    {"_SemiMaRkov_gamma_p_inv_boost", (DL_FUNC) &_SemiMaRkov_gamma_p_inv_boost, 2},
     {"_SemiMaRkov_rcpp_hello", (DL_FUNC) &_SemiMaRkov_rcpp_hello, 0},
     {NULL, NULL, 0}
 };
