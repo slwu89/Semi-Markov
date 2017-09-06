@@ -2,4 +2,5 @@
 
 export(ExponentialDistribution)
 export(ShiftedExponentialDistribution)
+export(WeibullDistribution)
 export(rcpp_hello)

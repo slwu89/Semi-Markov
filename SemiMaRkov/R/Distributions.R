@@ -18,6 +18,7 @@
 #'  * This method is bound to \code{Distribution$FracError} for:
 #'    * \code{\link{ExponentialDistribution}}
 #'    * \code{\link{ShiftedExponentialDistribution}}
+#'    * \code{\link{WeibullDistribution}}
 #'
 #'
 #' @param a numeric
@@ -35,13 +36,18 @@ ShiftedExponentialDistribution$set(which = "public",name = "FracError",
   value = FracError, overwrite = TRUE
 )
 
+WeibullDistribution$set(which = "public",name = "FracError",
+  value = FracError, overwrite = TRUE
+)
+
 
 #' Check Fractional Error
 #'
-#' If the fractional error $\frac{\left | a-b \right |}{b} > tol$ return \code{FALSE} and alert the user, otherwise return \code{TRUE}
+#' If the fractional error \deqn{\frac{\left | a-b \right |}{b} > tol} return \code{FALSE} and alert the user, otherwise return \code{TRUE}
 #'  * This method is bound to \code{Distribution$CheckFracError} for
 #'    * \code{\link{ExponentialDistribution}}
 #'    * \code{\link{ShiftedExponentialDistribution}}
+#'    * \code{\link{WeibullDistribution}}
 #'
 #' @param a numeric
 #' @param b numeric
@@ -62,5 +68,9 @@ ExponentialDistribution$set(which = "public",name = "CheckFracError",
 )
 
 ShiftedExponentialDistribution$set(which = "public",name = "CheckFracError",
+  value = CheckFracError, overwrite = TRUE
+)
+
+WeibullDistribution$set(which = "public",name = "FracError",
   value = CheckFracError, overwrite = TRUE
 )

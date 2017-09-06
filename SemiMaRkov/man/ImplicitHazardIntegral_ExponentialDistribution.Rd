@@ -2,7 +2,7 @@
 % Please edit documentation in R/Distributions-Exponential.R
 \name{ImplicitHazardIntegral_ExponentialDistribution}
 \alias{ImplicitHazardIntegral_ExponentialDistribution}
-\title{ExponentialDistribution: ImplicitHazardIntegral}
+\title{ExponentialDistribution: Implicit Hazard Integral}
 \usage{
 ImplicitHazardIntegral_ExponentialDistribution(current_time)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Distributions-Exponential.R
 \name{BoundedHazard_ExponentialDistribution}
 \alias{BoundedHazard_ExponentialDistribution}
-\title{ExponentialDistribution: BoundedHazard}
+\title{ExponentialDistribution: Bounded Hazard}
 \usage{
 BoundedHazard_ExponentialDistribution()
 }

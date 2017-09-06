@@ -47,7 +47,7 @@ ExponentialDistribution <- R6::R6Class(classname="ExponentialDistribution",
                        # Constructor
                        #################################################
 
-                       initialize = function(lambda, enabling_time, normal){
+                       initialize = function(lambda, enabling_time, normal = 1.0){
 
                          if(!(lambda > 0)){
                            stop(paste0("lambda ",lambda," must be greater than 0"))
@@ -73,6 +73,92 @@ ExponentialDistribution <- R6::R6Class(classname="ExponentialDistribution",
 
 ) #end class definition
 
+# Getters & Setters
+
+#' ExponentialDistribution: Get \code{enabling_time}
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$get_enabling_time}
+#'
+get_enabling_time_ExponentialDistribution <- function(){
+  return(private$enabling_time)
+}
+
+ExponentialDistribution$set(which = "public",name = "get_enabling_time",
+  value = get_enabling_time_ExponentialDistribution, overwrite = TRUE
+)
+
+#' ExponentialDistribution: Set \code{enabling_time}
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$get_enabling_time}
+#'
+#' @param enabling_time numeric
+#'
+set_enabling_time_ExponentialDistribution <- function(enabling_time){
+  private$enabling_time = enabling_time
+}
+
+ExponentialDistribution$set(which = "public",name = "set_enabling_time",
+  value = set_enabling_time_ExponentialDistribution, overwrite = TRUE
+)
+
+#' ExponentialDistribution: Get \code{lambda}
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$get_lambda}
+#'
+get_lambda_ExponentialDistribution <- function(){
+  return(private$lambda)
+}
+
+ExponentialDistribution$set(which = "public",name = "get_lambda",
+  value = get_lambda_ExponentialDistribution, overwrite = TRUE
+)
+
+#' ExponentialDistribution: Set \code{lambda}
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$set_lambda}
+#'
+#' @param lambda numeric
+#'
+set_lambda_ExponentialDistribution <- function(lambda){
+  private$lambda = lambda
+}
+
+ExponentialDistribution$set(which = "public",name = "set_lambda",
+  value = set_lambda_ExponentialDistribution, overwrite = TRUE
+)
+
+#' ExponentialDistribution: Get \code{normal}
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$get_normal}
+#'
+get_normal_ExponentialDistribution <- function(){
+  return(private$enabling_time)
+}
+
+ExponentialDistribution$set(which = "public",name = "get_normal",
+  value = get_normal_ExponentialDistribution, overwrite = TRUE
+)
+
+#' ExponentialDistribution: Set \code{normal}
+#'
+#' im a method!
+#'  * This method is bound to \code{ExponentialDistribution$set_normal}
+#'
+#' @param lambda numeric
+#'
+set_normal_ExponentialDistribution <- function(normal){
+  private$normal = normal
+}
+
+ExponentialDistribution$set(which = "public",name = "set_normal",
+  value = set_normal_ExponentialDistribution, overwrite = TRUE
+)
+
 
 ###############################################################################
 #   ExponentialDistribution: Class Methods
@@ -88,7 +174,7 @@ ExponentialDistribution <- R6::R6Class(classname="ExponentialDistribution",
 #'
 Sample_ExponentialDistribution <- function(current_time){
   U = runif(n=1,min=0,max=1) / private$normal
-  if(U>1){
+  if(U>=1){
     return(Inf)
   } else {
     return(current_time - log(U)/private$lambda)
@@ -100,7 +186,7 @@ ExponentialDistribution$set(which = "public",name = "Sample",
 )
 
 
-#' ExponentialDistribution: BoundedHazard
+#' ExponentialDistribution: Bounded Hazard
 #'
 #' im a method!
 #'  * This method is bound to \code{ExponentialDistribution$BoundedHazard}
@@ -114,7 +200,7 @@ ExponentialDistribution$set(which = "public",name = "BoundedHazard",
 )
 
 
-#' ExponentialDistribution: HazardIntegral
+#' ExponentialDistribution: Hazard Integral
 #'
 #' im a method!
 #'  * This method is bound to \code{ExponentialDistribution$HazardIntegral}
@@ -131,7 +217,7 @@ ExponentialDistribution$set(which = "public",name = "HazardIntegral",
 )
 
 
-#' ExponentialDistribution: ImplicitHazardIntegral
+#' ExponentialDistribution: Implicit Hazard Integral
 #'
 #' im a method!
 #'  * This method is bound to \code{ExponentialDistribution$ImplicitHazardIntegral}
@@ -148,21 +234,7 @@ ExponentialDistribution$set(which = "public",name = "ImplicitHazardIntegral",
 )
 
 
-#' ExponentialDistribution: EnablingTime
-#'
-#' im a method!
-#'  * This method is bound to \code{ExponentialDistribution$EnablingTime}
-#'
-EnablingTime_ExponentialDistribution <- function(current_time){
-  return(private$enabling_time)
-}
-
-ExponentialDistribution$set(which = "public",name = "EnablingTime",
-  value = EnablingTime_ExponentialDistribution, overwrite = TRUE
-)
-
-
-#' ExponentialDistribution: CheckSamples
+#' ExponentialDistribution: Check Samples
 #'
 #' im a method!
 #'  * This method is bound to \code{ExponentialDistribution$CheckSamples}
@@ -229,7 +301,7 @@ ShiftedExponentialDistribution <- R6::R6Class(classname="ShiftedExponentialDistr
                        # Constructor
                        #################################################
 
-                       initialize = function(lambda, enabling_time, shift, normal){
+                       initialize = function(lambda, enabling_time, shift = 0.0, normal = 1.0){
 
                          if(!(lambda > 0)){
                            stop(paste0("lambda ",lambda," must be greater than 0"))
@@ -257,6 +329,120 @@ ShiftedExponentialDistribution <- R6::R6Class(classname="ShiftedExponentialDistr
 
 ) #end class definition
 
+# Getters & Setters
+
+#' ShiftedExponentialDistribution: Get \code{enabling_time}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$get_enabling_time}
+#'
+get_enabling_time_ShiftedExponentialDistribution <- function(){
+  return(private$enabling_time)
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "get_enabling_time",
+  value = get_enabling_time_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+#' ShiftedExponentialDistribution: Set \code{enabling_time}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$get_enabling_time}
+#'
+#' @param enabling_time numeric
+#'
+set_enabling_time_ShiftedExponentialDistribution <- function(enabling_time){
+  private$enabling_time = enabling_time
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "set_enabling_time",
+  value = set_enabling_time_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+#' ShiftedExponentialDistribution: Get \code{lambda}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$get_lambda}
+#'
+get_lambda_ShiftedExponentialDistribution <- function(){
+  return(private$lambda)
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "get_lambda",
+  value = get_lambda_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+#' ShiftedExponentialDistribution: Set \code{lambda}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$set_lambda}
+#'
+#' @param lambda numeric
+#'
+set_lambda_ShiftedExponentialDistribution <- function(lambda){
+  private$lambda = lambda
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "set_lambda",
+  value = set_lambda_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+#' ShiftedExponentialDistribution: Get \code{shift}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$get_shift}
+#'
+get_shift_ShiftedExponentialDistribution <- function(){
+  return(private$enabling_time)
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "get_shift",
+  value = get_shift_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+#' ShiftedExponentialDistribution: Set \code{shift}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$set_shift}
+#'
+#' @param lambda numeric
+#'
+set_shift_ShiftedExponentialDistribution <- function(shift){
+  private$shift = shift
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "set_shift",
+  value = set_shift_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+#' ShiftedExponentialDistribution: Get \code{normal}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$get_normal}
+#'
+get_normal_ShiftedExponentialDistribution <- function(){
+  return(private$enabling_time)
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "get_normal",
+  value = get_normal_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
+#' ShiftedExponentialDistribution: Set \code{normal}
+#'
+#' im a method!
+#'  * This method is bound to \code{ShiftedExponentialDistribution$set_normal}
+#'
+#' @param lambda numeric
+#'
+set_normal_ShiftedExponentialDistribution <- function(normal){
+  private$normal = normal
+}
+
+ShiftedExponentialDistribution$set(which = "public",name = "set_normal",
+  value = set_normal_ShiftedExponentialDistribution, overwrite = TRUE
+)
+
 
 ###############################################################################
 #   ShiftedExponentialDistribution: Class Methods
@@ -272,7 +458,7 @@ ShiftedExponentialDistribution <- R6::R6Class(classname="ShiftedExponentialDistr
 #'
 Sample_ShiftedExponentialDistribution <- function(current_time){
   U = runif(n=1,min=0,max=1) / private$normal
-  if(U>1){
+  if(U>=1){
     return(Inf)
   } else if(current_time > private$enabling_time + private$shift){
     return(-log(U)/private$lambda)
@@ -288,7 +474,7 @@ ShiftedExponentialDistribution$set(which = "public",name = "Sample",
 )
 
 
-#' ShiftedExponentialDistribution: BoundedHazard
+#' ShiftedExponentialDistribution: Bounded Hazard
 #'
 #' im a method!
 #'  * This method is bound to \code{ShiftedExponentialDistribution$BoundedHazard}
@@ -320,21 +506,7 @@ ShiftedExponentialDistribution$set(which = "public",name = "HazardIntegral",
 )
 
 
-#' ShiftedExponentialDistribution: EnablingTime
-#'
-#' im a method!
-#'  * This method is bound to \code{ShiftedExponentialDistribution$EnablingTime}
-#'
-EnablingTime_ShiftedExponentialDistribution <- function(current_time){
-  return(private$enabling_time)
-}
-
-ShiftedExponentialDistribution$set(which = "public",name = "EnablingTime",
-  value = EnablingTime_ShiftedExponentialDistribution, overwrite = TRUE
-)
-
-
-#' ShiftedExponentialDistribution: CheckSamples
+#' ShiftedExponentialDistribution: Check Samples
 #'
 #' im a method!
 #'  * This method is bound to \code{ShiftedExponentialDistribution$CheckSamples}

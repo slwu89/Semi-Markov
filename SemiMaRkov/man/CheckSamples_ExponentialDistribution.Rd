@@ -2,7 +2,7 @@
 % Please edit documentation in R/Distributions-Exponential.R
 \name{CheckSamples_ExponentialDistribution}
 \alias{CheckSamples_ExponentialDistribution}
-\title{ExponentialDistribution: CheckSamples}
+\title{ExponentialDistribution: Check Samples}
 \usage{
 CheckSamples_ExponentialDistribution(samples, dt)
 }

@@ -18,6 +18,7 @@ Used to in \code{\link{CheckFracError}}
 \itemize{
 \item \code{\link{ExponentialDistribution}}
 \item \code{\link{ShiftedExponentialDistribution}}
+\item \code{\link{WeibullDistribution}}
 }
 }
 }

@@ -16,12 +16,13 @@ CheckFracError(a, b, tol, m)
 \item{m}{character}
 }
 \description{
-If the fractional error $\frac{\left | a-b \right |}{b} > tol$ return \code{FALSE} and alert the user, otherwise return \code{TRUE}
+If the fractional error \deqn{\frac{\left | a-b \right |}{b} > tol} return \code{FALSE} and alert the user, otherwise return \code{TRUE}
 \itemize{
 \item This method is bound to \code{Distribution$CheckFracError} for
 \itemize{
 \item \code{\link{ExponentialDistribution}}
 \item \code{\link{ShiftedExponentialDistribution}}
+\item \code{\link{WeibullDistribution}}
 }
 }
 }
