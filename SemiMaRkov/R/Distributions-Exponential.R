@@ -245,21 +245,23 @@ ExponentialDistribution$set(which = "public",name = "ImplicitHazardIntegral",
 #'
 CheckSamples_ExponentialDistribution <- function(samples, dt){
 
-  pass = TRUE
-  lambda_estimator = 1 / mean(samples)
-  too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
-  too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
+  # pass = TRUE
+  # lambda_estimator = 1 / mean(samples)
+  # too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
+  # too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
+  #
+  # if(too_low | too_high){
+  #   print(paste0("Parameter not in bounds. Low? ",too_low," high? ",too_high))
+  #   pass = FALSE
+  # }
+  #
+  # variance = var(samples)
+  #
+  # pass = self$CheckFracError(a = variance, b = private$lambda^2, tol = 0.01, m = "variance")
+  # return(pass)
 
-  if(too_low | too_high){
-    print(paste0("Parameter not in bounds. Low? ",too_low," high? ",too_high))
-    pass = FALSE
-  }
-
-  variance = var(samples)
-
-  pass = self$CheckFracError(a = variance, b = private$lambda^2, tol = 0.01, m = "variance")
+  pass = stats::ks.test(x = samples, y = "pexp", rate = private$lambda)$p.value < 0.05
   return(pass)
-
 }
 
 ExponentialDistribution$set(which = "public",name = "CheckSamples",
@@ -517,19 +519,22 @@ ShiftedExponentialDistribution$set(which = "public",name = "HazardIntegral",
 #'
 CheckSamples_ShiftedExponentialDistribution <- function(samples, dt){
 
-  pass = TRUE
-  lambda_estimator = 1 / mean(samples)
-  too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
-  too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
+  # pass = TRUE
+  # lambda_estimator = 1 / mean(samples)
+  # too_low = private$lambda < lambda_estimator*(1-1.96/sqrt(length(samples)))
+  # too_high = private$lambda > lambda_estimator*(1+1.96/sqrt(length(samples)))
+  #
+  # if(too_low | too_high){
+  #   print(paste0("Parameter not in bounds. Low? ",too_low," high? ",too_high))
+  #   pass = FALSE
+  # }
+  #
+  # variance = var(samples)
+  #
+  # pass = self$CheckFracError(a = variance, b = private$lambda^2, tol = 0.01, m = "variance")
+  # return(pass)
 
-  if(too_low | too_high){
-    print(paste0("Parameter not in bounds. Low? ",too_low," high? ",too_high))
-    pass = FALSE
-  }
-
-  variance = var(samples)
-
-  pass = self$CheckFracError(a = variance, b = private$lambda^2, tol = 0.01, m = "variance")
+  pass = stats::ks.test(x = samples, y = "pexp", rate = private$lambda)$p.value < 0.05
   return(pass)
 
 }
