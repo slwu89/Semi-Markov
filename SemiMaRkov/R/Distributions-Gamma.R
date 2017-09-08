@@ -85,10 +85,10 @@ GammaDistribution$set(which = "public",name = "get_alpha",
   value = get_alpha_GammaDistribution, overwrite = TRUE
 )
 
-#' WeibullDistribution: Set \code{alpha}
+#' GammaDistribution: Set \code{alpha}
 #'
 #' im a method!
-#'  * This method is bound to \code{WeibullDistribution$get_alpha}
+#'  * This method is bound to \code{GammaDistribution$get_alpha}
 #'
 #' @param alpha numeric
 #'
@@ -113,10 +113,10 @@ GammaDistribution$set(which = "public",name = "get_beta",
   value = get_beta_GammaDistribution, overwrite = TRUE
 )
 
-#' WeibullDistribution: Set \code{beta}
+#' GammaDistribution: Set \code{beta}
 #'
 #' im a method!
-#'  * This method is bound to \code{WeibullDistribution$get_beta}
+#'  * This method is bound to \code{GammaDistribution$get_beta}
 #'
 #' @param beta numeric
 #'
@@ -141,10 +141,10 @@ GammaDistribution$set(which = "public",name = "get_enabling_time",
   value = get_enabling_time_GammaDistribution, overwrite = TRUE
 )
 
-#' WeibullDistribution: Set \code{enabling_time}
+#' GammaDistribution: Set \code{enabling_time}
 #'
 #' im a method!
-#'  * This method is bound to \code{WeibullDistribution$get_enabling_time}
+#'  * This method is bound to \code{GammaDistribution$get_enabling_time}
 #'
 #' @param enabling_time numeric
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Distributions-Gamma.R
 \name{set_enabling_time_GammaDistribution}
 \alias{set_enabling_time_GammaDistribution}
-\title{WeibullDistribution: Set \code{enabling_time}}
+\title{GammaDistribution: Set \code{enabling_time}}
 \usage{
 set_enabling_time_GammaDistribution(enabling_time)
 }
@@ -12,6 +12,6 @@ set_enabling_time_GammaDistribution(enabling_time)
 \description{
 im a method!
 \itemize{
-\item This method is bound to \code{WeibullDistribution$get_enabling_time}
+\item This method is bound to \code{GammaDistribution$get_enabling_time}
 }
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Distributions-Gamma.R
 \name{set_beta_GammaDistribution}
 \alias{set_beta_GammaDistribution}
-\title{WeibullDistribution: Set \code{beta}}
+\title{GammaDistribution: Set \code{beta}}
 \usage{
 set_beta_GammaDistribution(beta)
 }
@@ -12,6 +12,6 @@ set_beta_GammaDistribution(beta)
 \description{
 im a method!
 \itemize{
-\item This method is bound to \code{WeibullDistribution$get_beta}
+\item This method is bound to \code{GammaDistribution$get_beta}
 }
 }
