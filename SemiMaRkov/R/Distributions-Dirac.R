@@ -145,3 +145,53 @@ Sample_DiracDistribution <- function(current_time){
 DiracDistribution$set(which = "public",name = "Sample",
   value = Sample_DiracDistribution, overwrite = TRUE
 )
+
+#' DiracDistribution: Bounded Hazard
+#'
+#' im a method!
+#'  * This method is bound to \code{DiracDistribution$BoundedHazard}
+#'
+BoundedHazard_DiracDistribution <- function(){
+  return(TRUE)
+}
+
+DiracDistribution$set(which = "public",name = "BoundedHazard",
+  value = BoundedHazard_DiracDistribution, overwrite = TRUE
+)
+
+#' DiracDistribution: Hazard Integral
+#'
+#' im a method!
+#'  * This method is bound to \code{DiracDistribution$HazardIntegral}
+#'
+#' @param t0 numeric
+#' @param t1 numeric
+#'
+HazardIntegral_DiracDistribution <- function(t0, t1){
+  absolute_time = private$enabling_time + value
+  if(absolute_time >= t0 & absolute_time < t1){
+    return(1)
+  } else {
+    return(0)
+  }
+}
+
+DiracDistribution$set(which = "public",name = "HazardIntegral",
+  value = HazardIntegral_DiracDistribution, overwrite = TRUE
+)
+
+#' DiracDistribution: Implicit Hazard Integral
+#'
+#' im a method!
+#'  * This method is bound to \code{DiracDistribution$ImplicitHazardIntegral}
+#'
+#' @param xa numeric
+#' @param t0 numeric
+#'
+ImplicitHazardIntegral_DiracDistribution <- function(xa, t0){
+  return(private$enabling_time + private$value)
+}
+
+DiracDistribution$set(which = "public",name = "ImplicitHazardIntegral",
+  value = ImplicitHazardIntegral_DiracDistribution, overwrite = TRUE
+)
